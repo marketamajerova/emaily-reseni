@@ -1,9 +1,9 @@
-const renderSection = (emails, elementId) => {
-  document.getElementById(elementId).innerHTML = emails
+const renderSection = (emails, element) => {
+  element.innerHTML = emails
     .map((email) => {
-      let iconClass = 'closed';
-      if (elementId === 'read') {
-        iconClass = 'opened';
+      let iconClass = 'opened';
+      if (email.unread) {
+        iconClass = 'closed';
       };
 
       return `
@@ -25,8 +25,8 @@ const renderSection = (emails, elementId) => {
 
 fetch(`https://apps.kodim.cz/daweb/trening-api/apis/emails?folder=unread`)
   .then((response) => response.json())
-  .then((data) => renderSection(data.emails, 'unread'));
+  .then((data) => renderSection(data.emails, document.getElementById('unread')));
 
 fetch(`https://apps.kodim.cz/daweb/trening-api/apis/emails?folder=read`)
   .then((response) => response.json())
-  .then((data) => renderSection(data.emails, 'read'));
+  .then((data) => renderSection(data.emails, document.getElementById('read')));

@@ -9,7 +9,7 @@ const renderSection = (emails, elementId) => {
       return `
         <div class="email">
           <div class="email__head">
-            <div class="email__icon email__icon--${iconClass}"></div>
+            <button class="email__icon email__icon--${iconClass}"></button>
             <div class="email__info">
               <div class="email__sender">${email.sender.name}</div>
               <div class="email__subject">${email.subject}</div>

@@ -1,27 +1,14 @@
-const renderSection = (emails, element) => {
-  element.innerHTML = emails
-    .map((email) => {
-      let iconClass = 'opened';
-      if (email.unread) {
-        iconClass = 'closed';
-      };
+import { Email } from "./Email/index.js";
 
-      return `
-        <div class="email">
-          <div class="email__head">
-            <button class="email__icon email__icon--${iconClass}"></button>
-            <div class="email__info">
-              <div class="email__sender">${email.sender.name}</div>
-              <div class="email__subject">${email.subject}</div>
-            </div>
-            <div class="email__time">${email.time}</div>
-          </div>
-          <div class="email__body"></div>
-        </div>
-      `;
-    })
-    .join('');
-};
+const renderSection = (emails, element) => {
+  
+const emailList = element.append(...emails.map((email) => Email({senderName: email.sender.name, 
+                                    subject: email.subject, 
+                                    time: email.time,
+                                    unread: email.unread})));
+  
+  return emailList;
+}
 
 fetch(`https://apps.kodim.cz/daweb/trening-api/apis/emails?folder=unread`)
   .then((response) => response.json())
